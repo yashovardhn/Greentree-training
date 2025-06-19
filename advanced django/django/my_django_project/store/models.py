@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -10,6 +11,18 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Book(models.Model):
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=255)
+    published_date = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.title} by {self.author}"
+
+    class Meta:
+        ordering = ['-published_date']
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
