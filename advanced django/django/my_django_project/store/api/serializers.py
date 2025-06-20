@@ -4,16 +4,8 @@ from ..models import Book
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ['id', 'title', 'author', 'published_date', 'price']
+        fields = ['id', 'title', 'author', 'published_date']
         read_only_fields = ['id']
-
-    def validate_price(self, value):
-        """
-        Check that the price is greater than 0.
-        """
-        if value <= 0:
-            raise serializers.ValidationError("Price must be greater than 0.")
-        return value
 
     def validate_published_date(self, value):
         """
