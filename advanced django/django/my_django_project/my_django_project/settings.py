@@ -36,9 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Add your apps here
+    # Third party apps
     'rest_framework',
     'rest_framework_simplejwt',
+    'drf_yasg',
+    # Local apps
     'store',
 ]
 
