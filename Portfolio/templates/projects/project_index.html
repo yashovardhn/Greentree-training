@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block page_content %}
+<div class="text-center mb-5">
+    <h1 class="display-4">{{ title }}</h1>
+    <p class="lead">Check out some of my recent projects below.</p>
+</div>
+
+<div class="row">
+    {% for project in projects %}
+    <div class="col-md-4 mb-4">
+        <div class="card project-card h-100">
+            {% if project.image %}
+            <img src="{{ project.image.url }}" class="card-img-top project-image" alt="{{ project.title }}">
+            {% else %}
+            <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                <span class="text-muted">No image available</span>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ project.title }}</h5>
+                <p class="card-text">{{ project.description|truncatewords:20 }}</p>
+                <div class="mb-2">
+                    <span class="badge bg-primary">{{ project.technology }}</span>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent">
+                <a href="{% url 'projects:project_detail' project.pk %}" class="btn btn-primary">View Details</a>
+                {% if project.url %}
+                <a href="{{ project.url }}" class="btn btn-outline-secondary" target="_blank" rel="noopener noreferrer">
+                    Live Demo
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">No projects available yet. Check back soon!</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

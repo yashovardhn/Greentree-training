@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-lg-8">
+        <h1 class="mb-4">{{ project.title }}</h1>
+        
+        {% if project.image %}
+        <div class="mb-4">
+            <img src="{{ project.image.url }}" class="img-fluid rounded" alt="{{ project.title }}">
+        </div>
+        {% endif %}
+        
+        <div class="mb-4">
+            <h4>Project Details</h4>
+            <p class="lead">{{ project.description }}</p>
+        </div>
+        
+        <div class="mb-4">
+            <h5>Technology Used</h5>
+            <span class="badge bg-primary">{{ project.technology }}</span>
+        </div>
+        
+        {% if project.url or project.github_url %}
+        <div class="d-flex gap-2 mb-4">
+            {% if project.url %}
+            <a href="{{ project.url }}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                <i class="bi bi-box-arrow-up-right me-1"></i> Live Demo
+            </a>
+            {% endif %n            
+            {% if project.github_url %}
+            <a href="{{ project.github_url }}" class="btn btn-dark" target="_blank" rel="noopener noreferrer">
+                <i class="bi bi-github me-1"></i> View on GitHub
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        <div class="mt-4">
+            <a href="{% url 'projects:project_index' %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i> Back to Projects
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Project Information</h5>
+            </div>
+            <div class="card-body">
+                <dl class="mb-0">
+                    <dt>Created</dt>
+                    <dd>{{ project.created_at|date:"F j, Y" }}</dd>
+                    
+                    <dt class="mt-2">Last Updated</dt>
+                    <dd>{{ project.updated_at|date:"F j, Y" }}</dd>
+                    
+                    {% if project.technology %}
+                    <dt class="mt-2">Technology</dt>
+                    <dd>{{ project.technology }}</dd>
+                    {% endif %}
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block page_content %}
+<div class="jumbotron text-center">
+    <h1 class="display-4">{{ title }}</h1>
+    <p class="lead">{{ welcome_message }}</p>
+    <hr class="my-4">
+    <p>Check out some of my latest projects below or browse through my portfolio.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'project_index' %}" role="button">View My Work</a>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Web Development</h5>
+                <p class="card-text">Building responsive and dynamic web applications using modern technologies.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Clean Code</h5>
+                <p class="card-text">Writing maintainable and efficient code following best practices.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Problem Solving</h5>
+                <p class="card-text">Analyzing complex problems and developing effective solutions.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
