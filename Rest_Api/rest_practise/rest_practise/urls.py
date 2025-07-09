@@ -18,9 +18,22 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from users import router as users_api_router
+from django.conf import settings
+
+auth_api_urls = [
+    # path(r'oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    # path(r'social/', include('social_django.urls', namespace='social')),
+    path(r'', include('rest_framework_social_oauth2.urls')),
+    
+]
+
+if settings.DEBUG:
+    auth_api_urls.append(path(r'verify/', include('rest_framework.urls')))
 
 api_url_patterns = [
+    path(r'auth/', include(auth_api_urls)),
     path(r'accounts/', include(users_api_router.router.urls)),
+    
 ]
 
 urlpatterns = [
@@ -28,3 +41,4 @@ urlpatterns = [
     path('api/', include(api_url_patterns)),
     
 ]
+
