@@ -6,6 +6,12 @@
 # Byte-code files
 __pycache__/
 Rest_Api/rest_practise/rest_practise/__pycache__
+11. Microservices Concepts/authentication/__pycache__
+11. Microservices Concepts/auth_service/__pycache__
+11. Microservices Concepts/authentication/migrations
+advanced django/django/my_django_project/my_django_project/__pycache__
+advanced django/django/my_django_project/pricing/migrations
+advanced django/django/my_django_project/store/__pycache__
 
 # Django specific
 *.sqlite3
