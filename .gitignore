@@ -1,0 +1,13 @@
+# Python virtual environment
+/virt/
+/env/
+.venv/
+
+# Byte-code files
+__pycache__/
+Rest_Api/rest_practise/rest_practise/__pycache__
+
+# Django specific
+*.sqlite3
+/media/
+/static/
