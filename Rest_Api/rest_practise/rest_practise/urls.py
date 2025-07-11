@@ -19,6 +19,7 @@ from django.urls import path
 from django.urls import include
 from users import router as users_api_router
 from django.conf import settings
+from house import router as house_api_router
 
 auth_api_urls = [
     # path(r'oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
@@ -33,6 +34,7 @@ if settings.DEBUG:
 api_url_patterns = [
     path(r'auth/', include(auth_api_urls)),
     path(r'accounts/', include(users_api_router.router.urls)),
+    path(r'house/', include(house_api_router.router.urls)),
     
 ]
 
