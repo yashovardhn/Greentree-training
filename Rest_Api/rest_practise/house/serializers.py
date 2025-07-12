@@ -34,9 +34,3 @@ class HouseSerializer(serializers.ModelSerializer):
         instance.description = validated_data.get('description', instance.description)
         instance.save()
         return instance
-
-    # NOTE: You must also implement the `get_number_counts` method for SerializerMethodField.
-    # For example:
-    # def get_number_counts(self, obj):
-    #     # Return the desired count or calculation here.
-    #     return 0 # Placeholder for the actual calculation.
