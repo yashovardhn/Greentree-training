@@ -14,6 +14,7 @@ advanced django/django/my_django_project/pricing/migrations
 advanced django/django/my_django_project/store/__pycache__
 Rest_Api/rest_practise/db.sqlite3
 Rest_Api/rest_practise/house/migrations
+Rest_Api/rest_practise/db.sqlite3
 
 # Django specific
 *.sqlite3
