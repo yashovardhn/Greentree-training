@@ -6,7 +6,7 @@ from django.utils.deconstruct import deconstructible
 
 @deconstructible
 class GenerateProfileImagePath(object):
-    def __inti__(self):
+    def __init__(self):
         pass
     def __call__(self, instance, filename):
         ext = filename.split('.')[-1]
@@ -20,6 +20,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.FileField(upload_to=user_profile_image_path, blank=True, null=True)
     house = models.ForeignKey('house.House', on_delete=models.SET_NULL, blank=True, null=True, related_name='t_members')
+    is_manager = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.user.username}\'s Profile'

@@ -11,7 +11,7 @@ class HouseSerializer(serializers.ModelSerializer):
         fields = (
             'url', 'id', 'name', 'created_on', 
             'description', 'manager', 'points', 
-            'completed_task_count', 'not_completed_task_count','members','members_counts'  # Added 'number_counts' to the fields tuple
+            'completed_task_count', 'not_completed_task_count','members','members_counts','image' # Added 'number_counts' to the fields tuple
         )
         read_only_fields = ('points', 'completed_task_count', 'not_completed_task_count')
 

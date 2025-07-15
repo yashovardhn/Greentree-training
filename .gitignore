@@ -15,8 +15,12 @@ advanced django/django/my_django_project/store/__pycache__
 Rest_Api/rest_practise/db.sqlite3
 Rest_Api/rest_practise/house/migrations
 Rest_Api/rest_practise/db.sqlite3
+Rest_Api/rest_practise/users/__pycache__
 
 # Django specific
 *.sqlite3
 /media/
 /static/
+
+#media 
+Rest_Api/rest_practise/media

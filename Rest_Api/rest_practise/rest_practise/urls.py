@@ -20,6 +20,8 @@ from django.urls import include
 from users import router as users_api_router
 from django.conf import settings
 from house import router as house_api_router
+from django.conf.urls.static import static
+
 
 auth_api_urls = [
     # path(r'oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
@@ -38,9 +40,14 @@ api_url_patterns = [
     
 ]
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(api_url_patterns)),
     
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
