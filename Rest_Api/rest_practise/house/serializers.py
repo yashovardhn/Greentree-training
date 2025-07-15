@@ -3,6 +3,8 @@ from .models import House
 
 class HouseSerializer(serializers.ModelSerializer):
     members_counts = serializers.SerializerMethodField(read_only=True)
+    members = serializers.HyperlinkedRelatedField(read_only=True, many=True, view_name='profile-detail')
+    manager = serializers.HyperlinkedRelatedField(read_only=True,many=False, view_name='profile-detail')
 
     class Meta:
         model = House
@@ -24,13 +26,13 @@ class HouseSerializer(serializers.ModelSerializer):
         return 0
     
     
-    def create(self, validated_data):
-        house = House.objects.create(**validated_data)
-        return house
+    # def create(self, validated_data):
+    #     house = House.objects.create(**validated_data)
+    #     return house
 
-    def update(self, instance, validated_data):
-        instance.address = validated_data.get('address', instance.address)
-        instance.image = validated_data.get('image', instance.image)
-        instance.description = validated_data.get('description', instance.description)
-        instance.save()
-        return instance
+    # def update(self, instance, validated_data):
+    #     instance.address = validated_data.get('address', instance.address)
+    #     instance.image = validated_data.get('image', instance.image)
+    #     instance.description = validated_data.get('description', instance.description)
+    #     instance.save()
+    #     return instance
