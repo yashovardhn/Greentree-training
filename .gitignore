@@ -24,3 +24,7 @@ Rest_Api/rest_practise/users/__pycache__
 
 #media 
 Rest_Api/rest_practise/media
+Rest_Api/rest_practise/house
+Rest_Api/rest_practise/db.sqlite3
+Rest_Api/rest_practise/manage.py
+Rest_Api/rest_practise/requirements.txt
