@@ -25,11 +25,11 @@ class GenerateAttachmentFilePath:
 attachment_file_path = GenerateAttachmentFilePath()
 
 class TaskList(models.Model):
+    name = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     completed_on = models.DateTimeField(null=True, blank=True)
     house = models.ForeignKey('house.House', null=True, blank=True, on_delete=models.SET_NULL, related_name='lists')
     created_by = models.ForeignKey('users.Profile', null=True, blank=True, on_delete=models.SET_NULL, related_name='lists')
-    name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=TASK_STATUS_CHOICES, default=NOT_COMPLETE)
 
@@ -37,12 +37,12 @@ class TaskList(models.Model):
         return f'{self.id} - {self.name}'
 
 class Task(models.Model):
+    name = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     completed_on = models.DateTimeField(null=True, blank=True)
     created_by = models.ForeignKey('users.Profile', null=True, blank=True, on_delete=models.SET_NULL, related_name='created_tasks')
     completed_by = models.ForeignKey('users.Profile', null=True, blank=True, on_delete=models.SET_NULL, related_name='completed_tasks')
     task_list = models.ForeignKey(TaskList, on_delete=models.CASCADE, related_name='tasks')
-    name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=TASK_STATUS_CHOICES, default=NOT_COMPLETE)
 
