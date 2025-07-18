@@ -26,7 +26,6 @@ class TaskSerializer(serializers.ModelSerializer):
     fields = ['url', 'id', 'name', 'description', 'status' 'created_on', 'completed_on', 'created_by', 'completed_by', 'task_list']
     read_only_fields = ('created_on', 'completed_on', 'created_by', 'completed_by')
 
-
 class AttachmentSerializer(serializers.ModelSerializer):
     task = serializers.HyperlinkedRelatedField(queryset=Task.objects.all(), many=False, view_name='task-detail')
 
