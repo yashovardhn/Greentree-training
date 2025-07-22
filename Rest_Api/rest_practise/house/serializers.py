@@ -9,7 +9,7 @@ class HouseSerializer(serializers.ModelSerializer):
     class Meta:
         model = House
         fields = (
-            'url', 'id', 'name', 'created_on', 
+            'name', 'url', 'id', 'created_on', 
             'description', 'manager', 'points', 
             'completed_task_count', 'not_completed_task_count','members','members_counts','image' # Added 'number_counts' to the fields tuple
         )
@@ -22,17 +22,16 @@ class HouseSerializer(serializers.ModelSerializer):
         """
         # Replace this with your actual logic to count members. 
         # Example if 'members' is a related manager on the House model:
-        # return obj.members.count()
-        return 0
-    
-    
-    # def create(self, validated_data):
-    #     house = House.objects.create(**validated_data)
-    #     return house
+        return obj.members.count()
 
-    # def update(self, instance, validated_data):
-    #     instance.address = validated_data.get('address', instance.address)
-    #     instance.image = validated_data.get('image', instance.image)
-    #     instance.description = validated_data.get('description', instance.description)
-    #     instance.save()
-    #     return instance
+    
+    
+    def create(self, validated_data):
+        # Custom logic before creation, e.g. assign a manager automatically if needed
+        house = House.objects.create(**validated_data)
+        # For example, assign manager from serializer context (if passed)
+        request = self.context.get('request')
+        if request and hasattr(request.user, 'profile'):
+            house.manager = request.user.profile
+            house.save()
+        return house

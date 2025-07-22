@@ -17,14 +17,20 @@ class TaskListSerializer(serializers.ModelSerializer):
     #     return obj.tasks.count()
 
 class TaskSerializer(serializers.ModelSerializer):
-
-    created_by = serializers.HyperlinkedRelatedField(read_only=True, many = False, view_name='profile-detail')
-    completed_by = serializers.HyperlinkedRelatedField(read_only=True, many = False, view_name='profile-detail')
+    created_by = serializers.HyperlinkedRelatedField(read_only=True, many=False, view_name='profile-detail')
+    completed_by = serializers.HyperlinkedRelatedField(read_only=True, many=False, view_name='profile-detail')
     task_list = serializers.HyperlinkedRelatedField(queryset=TaskList.objects.all(), many=False, view_name='tasklist-detail')
 
-    model = Task
-    fields = ['url', 'id', 'name', 'description', 'status' 'created_on', 'completed_on', 'created_by', 'completed_by', 'task_list']
-    read_only_fields = ('created_on', 'completed_on', 'created_by', 'completed_by')
+    class Meta:
+        model = Task
+        fields = [
+            'url', 'id', 'name', 'description', 'status', 'created_on',
+            'completed_on', 'created_by', 'completed_by', 'task_list'
+        ]
+        read_only_fields = (
+            'created_on', 'completed_on', 'created_by', 'completed_by'
+        )
+
 
 class AttachmentSerializer(serializers.ModelSerializer):
     task = serializers.HyperlinkedRelatedField(queryset=Task.objects.all(), many=False, view_name='task-detail')
