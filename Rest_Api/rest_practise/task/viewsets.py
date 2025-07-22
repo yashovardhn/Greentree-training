@@ -6,8 +6,9 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins
-from .permissions import IsAllowedToEditTaskListElseNone
 
+from .permissions import IsAllowedToEditTaskListElseNone, IsAllowedToEditTaskElseNone
+from .serializers import TaskSerializer, AttachmentSerializer
 from .models import TaskList, Task, Attachment
 from .serializers import TaskListSerializer
 
@@ -26,4 +27,15 @@ class TaskListViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins
     #     task_list = self.get_object()
     #     tasks_count = task_list.tasks.count()
     #     return Response({'tasks_count': tasks_count}, status=status.HTTP_200_OK)
+
+    class TaskViewSet(viewsets.ModelViewSet):
+        queryset = Task.objects.all()
+        serializer_class = TaskSerializer
+        permission_classes = [IsAuthenticated]
+
+class AttachmentViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = Attachment.objects.all()
+    serializer_class = AttachmentSerializer
+    permission_classes = [IsAllowedToEditTaskElseNone]
+
     
