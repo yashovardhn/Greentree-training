@@ -1,9 +1,10 @@
 from rest_framework import serializers
 from .models import House
+from users.models import Profile
 
 class HouseSerializer(serializers.ModelSerializer):
     members_counts = serializers.SerializerMethodField(read_only=True)
-    members = serializers.HyperlinkedRelatedField(read_only=True, many=True, view_name='profile-detail')
+    members = serializers.PrimaryKeyRelatedField(queryset=Profile.objects.all(), many=True, required=False)
     manager = serializers.HyperlinkedRelatedField(read_only=True,many=False, view_name='profile-detail')
 
     class Meta:

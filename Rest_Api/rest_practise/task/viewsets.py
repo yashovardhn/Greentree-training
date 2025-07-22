@@ -13,29 +13,25 @@ from .models import TaskList, Task, Attachment
 from .serializers import TaskListSerializer
 
 class TaskListViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    permission_classes = [IsAllowedToEditTaskListElseNone]
     queryset = TaskList.objects.all()
     serializer_class = TaskListSerializer
-    permission_classes = [IsAllowedToEditTaskListElseNone]
-
-    # def get_permissions(self):
-    #     if self.action in ['create', 'update', 'partial_update', 'destroy']:
-    #         self.permission_classes = [IsAdminUser]
-    #     return super().get_permissions()
-
-    # @action(detail=True, methods=['get'], name='Get Tasks Count')
-    # def tasks_count(self, request, pk=None):
-    #     task_list = self.get_object()
-    #     tasks_count = task_list.tasks.count()
-    #     return Response({'tasks_count': tasks_count}, status=status.HTTP_200_OK)
+    
 
 class TaskViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAllowedToEditTaskElseNone]
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [IsAuthenticated]
 
-class AttachmentViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    def get_queryset(self):
+        queryset = super(TaskViewSet, self).get_queryset()
+        user_profile = self.request.user.profile
+        updated_queryset = queryset.filter(task_list__house=user_profile.house)
+        return updated_queryset
+
+class AttachmentViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
+    permission_classes = [IsAllowedToEditAttachmentElseNone]
     queryset = Attachment.objects.all()
     serializer_class = AttachmentSerializer
-    permission_classes = [IsAllowedToEditAttachmentElseNone]
-
+    
     
