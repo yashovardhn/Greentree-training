@@ -2,6 +2,7 @@
 /virt/
 /env/
 .venv/
+Rest_Api/virt
 
 # Byte-code files
 __pycache__/
@@ -28,3 +29,4 @@ Rest_Api/rest_practise/house
 Rest_Api/rest_practise/db.sqlite3
 Rest_Api/rest_practise/manage.py
 Rest_Api/rest_practise/requirements.txt
+
