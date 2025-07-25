@@ -10,6 +10,8 @@ TASK_STATUS_CHOICES = [
     (NOT_COMPLETE, 'Not Completed'),
     (COMPLETE, 'Completed'),
 ]
+
+
 @deconstructible
 class GenerateAttachmentFilePath:
     def __init__(self):
