@@ -3,6 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from .models import TaskList, Task, Attachment
 
+
 class TaskListAdmin(admin.ModelAdmin):
     list_display = ('name', 'id', 'created_on', 'house', 'created_by', 'status')
     search_fields = ('name', 'description')
