@@ -2,7 +2,6 @@ from rest_framework import serializers
 from .models import TaskList, Task, Attachment
 from house.models import House
 
-
 class TaskListSerializer(serializers.ModelSerializer):
     tasks_count = serializers.SerializerMethodField(read_only=True) # Assuming this is uncommented now
     house = serializers.HyperlinkedRelatedField(queryset=House.objects.all(), many=False, view_name='house-detail')
