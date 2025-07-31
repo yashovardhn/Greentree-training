@@ -55,7 +55,6 @@ class TaskSerializer(serializers.ModelSerializer):
             'created_on', 'completed_on', 'created_by', 'completed_by'
         )
 
-
 class AttachmentSerializer(serializers.ModelSerializer):
     task = serializers.HyperlinkedRelatedField(queryset=Task.objects.all(), many=False, view_name='task-detail')
 
