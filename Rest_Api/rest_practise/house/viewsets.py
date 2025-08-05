@@ -17,13 +17,20 @@ class HouseViewSet(ModelViewSet):
     permission_classes = [IsHouseManagerOrNone]
 
     def get_permissions(self):
-        if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            self.permission_classes = [IsAdminUser]
+        """
+        Instantiates and returns the list of permissions that this view requires.
+        """
+        if self.action in ['create']:
+            permission_classes = [IsAdminUser]
+        elif self.action in ['update', 'partial_update', 'destroy', 'remove_member']:
+            # Only house manager can update/delete the house or remove members
+            permission_classes = [IsAuthenticated, IsHouseManagerOrNone]
         elif self.action in ['join', 'leave']:
-            self.permission_classes = [IsAuthenticated]
-        elif self.action in ['remove_member']:
-            self.permission_classes = [IsAdminUser]
-        return super().get_permissions()
+            permission_classes = [IsAuthenticated]
+        else:
+            # Default to read-only for list and retrieve actions
+            permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+        return [permission() for permission in permission_classes]
 
     @action(detail=True, methods=['post'], name='Join')
     def join(self, request, pk=None):
