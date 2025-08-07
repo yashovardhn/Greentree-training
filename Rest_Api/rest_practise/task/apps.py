@@ -5,6 +5,7 @@ class TaskConfig(AppConfig):
     def ready(self):
         import task.signals
         
+        
         # Ensure signals are imported when the app is ready
         # This is necessary to connect the signals defined in task/signals.py
         # to the appropriate models and events.
