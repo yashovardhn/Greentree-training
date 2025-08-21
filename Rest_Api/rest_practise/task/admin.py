@@ -7,6 +7,7 @@ class TaskListAdmin(admin.ModelAdmin):
     list_display = ('name', 'id', 'created_on', 'house', 'created_by', 'status')
     search_fields = ('name', 'description')
     list_filter = ('created_on', 'house', 'created_by', 'status')
+    
 
 admin.site.register(TaskList, TaskListAdmin)
 class TaskAdmin(admin.ModelAdmin):
