@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets, mixins, permissions
 from .serializers import UserSerializer, ProfileSerializer 
 from .permissions import IsUserOwnerOrGetAndPostOnly, IsProfileOwnerOrReadOnly
 from .models import Profile  
@@ -12,6 +12,7 @@ class UserViewSet(viewsets.ModelViewSet):
     - Create: Anyone (for registration)
     - Retrieve/Update/Delete: Owner or admin only
     """
+    queryset = User.objects.all()
     permission_classes = [IsUserOwnerOrGetAndPostOnly]
     serializer_class = UserSerializer
     
@@ -41,6 +42,7 @@ class ProfileViewSet(viewsets.GenericViewSet,
     - Retrieve: Owner or admin
     - Update/Delete: Owner or admin only
     """
+    queryset = Profile.objects.all() 
     permission_classes = [IsProfileOwnerOrReadOnly, permissions.IsAuthenticated]
     serializer_class = ProfileSerializer
     
