@@ -4,6 +4,7 @@
 .venv/
 Rest_Api/virt
 
+
 # Byte-code files
 __pycache__/
 Rest_Api/rest_practise/rest_practise/__pycache__
