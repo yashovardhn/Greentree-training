@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, filters
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
@@ -16,7 +16,9 @@ class HouseViewSet(ModelViewSet):
     queryset = House.objects.all()
     serializer_class = HouseSerializer
     permission_classes = [IsHouseManagerOrNone]
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter]
+    search_fields = ['name', 'description']
+    ordering_fields = ['points', 'completed_tasks_count', 'not_completed_tasks_count']
     filterset_fields = ['members']
 
     # def get_permissions(self):

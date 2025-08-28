@@ -1,4 +1,4 @@
-from rest_framework import viewsets, mixins, status
+from rest_framework import viewsets, mixins, status, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -37,11 +37,14 @@ class TaskViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAllowedToEditTaskElseNone]
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    search_fields = ['name', 'status']
     filterset_fields = ['status']
 
     def get_queryset(self):
+        queryset = super().get_queryset()
         user_profile = self.request.user.profile
+        updated_queryset = queryset.filter(created_by=self.request.user)
         return Task.objects.filter(task_list__house=user_profile.house)
 
     @action(detail=True, methods=['post'], url_path='complete')
