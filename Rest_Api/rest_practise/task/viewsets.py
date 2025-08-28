@@ -30,11 +30,15 @@ class TaskListViewSet(
     permission_classes = [IsAllowedToEditTaskListElseNone]
     queryset = TaskList.objects.all()
     serializer_class = TaskListSerializer
+    
 
 
 class TaskViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAllowedToEditTaskElseNone]
+    queryset = Task.objects.all()
     serializer_class = TaskSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['status']
 
     def get_queryset(self):
         user_profile = self.request.user.profile

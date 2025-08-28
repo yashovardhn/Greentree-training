@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend # type: ignore
 
 from .models import House
 from .serializers import HouseSerializer
@@ -15,22 +16,24 @@ class HouseViewSet(ModelViewSet):
     queryset = House.objects.all()
     serializer_class = HouseSerializer
     permission_classes = [IsHouseManagerOrNone]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['members']
 
-    def get_permissions(self):
-        """
-        Instantiates and returns the list of permissions that this view requires.
-        """
-        if self.action in ['create']:
-            permission_classes = [IsAdminUser]
-        elif self.action in ['update', 'partial_update', 'destroy', 'remove_member']:
-            # Only house manager can update/delete the house or remove members
-            permission_classes = [IsAuthenticated, IsHouseManagerOrNone]
-        elif self.action in ['join', 'leave']:
-            permission_classes = [IsAuthenticated]
-        else:
-            # Default to read-only for list and retrieve actions
-            permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-        return [permission() for permission in permission_classes]
+    # def get_permissions(self):
+    #     """
+    #     Instantiates and returns the list of permissions that this view requires.
+    #     """
+    #     if self.action in ['create']:
+    #         permission_classes = [IsAdminUser]
+    #     elif self.action in ['update', 'partial_update', 'destroy', 'remove_member']:
+    #         # Only house manager can update/delete the house or remove members
+    #         permission_classes = [IsAuthenticated, IsHouseManagerOrNone]
+    #     elif self.action in ['join', 'leave']:
+    #         permission_classes = [IsAuthenticated]
+    #     else:
+    #         # Default to read-only for list and retrieve actions
+    #         permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    #     return [permission() for permission in permission_classes]
 
     @action(detail=True, methods=['post'], name='Join')
     def join(self, request, pk=None):
