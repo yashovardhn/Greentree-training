@@ -11,7 +11,6 @@ from .models import House
 from .serializers import HouseSerializer
 from .permissions import IsHouseManagerOrNone
 
-
 class HouseViewSet(ModelViewSet):
     queryset = House.objects.all()
     serializer_class = HouseSerializer
