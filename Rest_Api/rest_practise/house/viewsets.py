@@ -6,7 +6,6 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend # type: ignore
-
 from .models import House
 from .serializers import HouseSerializer
 from .permissions import IsHouseManagerOrNone
