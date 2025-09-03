@@ -34,6 +34,7 @@ class HouseViewSet(ModelViewSet):
     #         # Default to read-only for list and retrieve actions
     #         permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     #     return [permission() for permission in permission_classes]
+    
 
     @action(detail=True, methods=['post'], name='Join')
     def join(self, request, pk=None):
